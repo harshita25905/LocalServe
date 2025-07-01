@@ -62,7 +62,7 @@ export function ProviderRegistrationForm() {
       <CardHeader>
         <CardTitle>Provider Registration</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-8">
         {/* Personal Information */}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
@@ -130,15 +130,19 @@ export function ProviderRegistrationForm() {
         </div>
 
         {/* Location */}
-        <div>
+        <div className="relative">
           <Label className="text-sm font-medium mb-2 block">Service Location *</Label>
-          <LocationSearch
-            placeholder="Search your service area..."
-            onLocationSelect={handleLocationSelect}
-            showPopular={true}
-          />
+          <div className="relative z-10">
+            <LocationSearch
+              placeholder="Search your service area..."
+              onLocationSelect={handleLocationSelect}
+              showPopular={true}
+              dropdownDirection="auto"
+              maxHeight={200}
+            />
+          </div>
           {selectedLocation && (
-            <div className="mt-2 p-2 bg-blue-50 rounded-md">
+            <div className="mt-2 p-2 bg-blue-50 rounded-md relative z-10">
               <div className="text-sm font-medium text-blue-900">
                 Selected Service Area: {selectedLocation.name}, {selectedLocation.state}
               </div>

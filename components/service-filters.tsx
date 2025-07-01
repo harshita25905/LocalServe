@@ -23,17 +23,21 @@ export function ServiceFilters() {
       <CardHeader>
         <CardTitle>Filters</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-8">
         {/* Location */}
-        <div>
+        <div className="relative">
           <Label className="text-sm font-medium mb-2 block">Location</Label>
-          <LocationSearch
-            placeholder="Search location..."
-            onLocationSelect={handleLocationSelect}
-            showPopular={false}
-          />
+          <div className="relative z-10">
+            <LocationSearch
+              placeholder="Search location..."
+              onLocationSelect={handleLocationSelect}
+              showPopular={false}
+              dropdownDirection="auto"
+              maxHeight={180}
+            />
+          </div>
           {selectedLocation && (
-            <div className="mt-1 text-xs text-gray-500">
+            <div className="mt-1 text-xs text-gray-500 relative z-10">
               Selected: {selectedLocation.name}, {selectedLocation.state}
             </div>
           )}

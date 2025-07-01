@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react"
+import { GlobeIcon, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react"
 
 export function Footer() {
   return (
@@ -18,9 +18,30 @@ export function Footer() {
               Connecting you with trusted local service providers for all your home needs.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
-              <Instagram className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
+              <a
+                href="https://piyushchaudhary.bio.link/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform duration-200 hover:scale-110"
+              >
+                <GlobeIcon className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
+              </a>
+              <a
+                href="https://twitter.com/DevlooperPiyush"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform duration-200 hover:scale-110"
+              >
+                <Twitter className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
+              </a>
+              <a
+                href="https://instagram.com/piiiyuuushhh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform duration-200 hover:scale-110"
+              >
+                <Instagram className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
+              </a>
             </div>
           </div>
 
@@ -92,14 +113,14 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-400">Mumbai, India</span>
+                <span className="text-gray-400">{"Uttar Pradesh, India"}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400">© 2024 LocalServe. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <p className="text-gray-400">© 2025 LocalServe. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
       </div>
     </footer>

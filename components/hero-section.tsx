@@ -2,14 +2,15 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
 import { LocationSearch } from "@/components/location-search"
 import type { Location } from "@/data/locations"
+import { ServiceSearch } from "@/components/service-search"
+import { useRouter } from "next/navigation"
 
 export function HeroSection() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
   const [service, setService] = useState("")
+  const router = useRouter()
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location)
@@ -19,6 +20,8 @@ export function HeroSection() {
   const handleSearch = () => {
     if (selectedLocation && service) {
       console.log("Searching for:", service, "in", selectedLocation.name)
+      // Navigate to services page with filters
+      window.location.href = `/services?location=${selectedLocation.id}&service=${encodeURIComponent(service)}`
     }
   }
 
@@ -43,28 +46,30 @@ export function HeroSection() {
             Connect with verified professionals for all your home service needs
           </p>
 
-          {/* Animated search bar */}
-          <div className="bg-white rounded-lg p-4 shadow-lg mb-8 animate-fade-in-up animation-delay-600 hover:shadow-xl transition-shadow duration-300">
+          {/* Search Bar */}
+          <div className="bg-white rounded-lg p-4 shadow-lg mb-8 animate-fade-in-up animation-delay-600 hover:shadow-xl transition-shadow duration-300 relative z-10">
             <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 transform transition-all duration-200 hover:scale-105">
+              <div className="flex-1 relative">
                 <LocationSearch
                   placeholder="Enter your location"
                   onLocationSelect={handleLocationSelect}
                   showPopular={true}
+                  dropdownDirection="auto"
+                  maxHeight={200}
                 />
               </div>
-              <div className="flex-1 relative transform transition-all duration-200 hover:scale-105">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 transition-colors duration-200" />
-                <Input
+              <div className="flex-1 relative">
+                <ServiceSearch
                   placeholder="What service do you need?"
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
-                  className="pl-10 text-gray-900 transition-all duration-200 focus:ring-2 focus:ring-blue-500"
+                  onServiceSelect={(selectedService) => setService(selectedService)}
+                  showPopular={true}
+                  dropdownDirection="auto"
+                  maxHeight={200}
                 />
               </div>
               <Button
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 transform transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                className="bg-blue-600 hover:bg-blue-700 transform transition-all duration-200 hover:scale-105 hover:shadow-lg relative z-20"
                 onClick={handleSearch}
                 disabled={!selectedLocation || !service}
               >
@@ -73,7 +78,7 @@ export function HeroSection() {
             </div>
 
             {selectedLocation && (
-              <div className="mt-2 text-sm text-gray-600 animate-fade-in">
+              <div className="mt-2 text-sm text-gray-600 animate-fade-in relative z-10">
                 📍 Searching in:{" "}
                 <span className="font-medium">
                   {selectedLocation.name}, {selectedLocation.state}
@@ -82,12 +87,13 @@ export function HeroSection() {
             )}
           </div>
 
-          {/* Animated CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-900">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-900 mt-16 md:mt-8">
             <Button
               size="lg"
               variant="secondary"
               className="text-blue-600 transform transition-all duration-200 hover:scale-105 hover:shadow-lg"
+              onClick={() => router.push("/services")}
             >
               Book a Service
             </Button>
@@ -95,6 +101,7 @@ export function HeroSection() {
               size="lg"
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-blue-600 bg-transparent transform transition-all duration-200 hover:scale-105 hover:shadow-lg"
+              onClick={() => router.push("/provider/register")}
             >
               Register as Provider
             </Button>
