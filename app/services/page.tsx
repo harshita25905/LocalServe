@@ -2,7 +2,7 @@ import { Header } from "@/components/header"
 import { ServiceFilters } from "@/components/service-filters"
 import { ProviderCard } from "@/components/provider-card"
 import { Footer } from "@/components/footer"
-import { ChatBot } from "@/components/chat-bot"
+import { AIVoiceAssistant } from "@/components/ai-voice-assistant"
 
 const mockProviders = [
   {
@@ -76,7 +76,7 @@ export default function ServicesPage() {
         </div>
       </main>
       <Footer />
-      <ChatBot />
+      <AIVoiceAssistant />
     </div>
   )
 }

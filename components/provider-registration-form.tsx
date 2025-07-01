@@ -8,7 +8,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Upload, MapPin, Clock } from "lucide-react"
+import { Upload, Clock } from "lucide-react"
+import { LocationSearch } from "@/components/location-search"
+import type { Location } from "@/data/locations"
 
 export function ProviderRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -16,11 +18,11 @@ export function ProviderRegistrationForm() {
     phone: "",
     email: "",
     serviceType: "",
-    location: "",
     experience: "",
     description: "",
     availability: [] as string[],
   })
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
 
   const serviceTypes = [
     "Carpenter",
@@ -48,6 +50,11 @@ export function ProviderRegistrationForm() {
         availability: prev.availability.filter((d) => d !== day),
       }))
     }
+  }
+
+  const handleLocationSelect = (location: Location) => {
+    setSelectedLocation(location)
+    console.log("Provider location selected:", location)
   }
 
   return (
@@ -124,17 +131,22 @@ export function ProviderRegistrationForm() {
 
         {/* Location */}
         <div>
-          <Label htmlFor="location">Service Location *</Label>
-          <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              id="location"
-              value={formData.location}
-              onChange={(e) => setFormData((prev) => ({ ...prev, location: e.target.value }))}
-              placeholder="Enter your service area"
-              className="pl-10"
-            />
-          </div>
+          <Label className="text-sm font-medium mb-2 block">Service Location *</Label>
+          <LocationSearch
+            placeholder="Search your service area..."
+            onLocationSelect={handleLocationSelect}
+            showPopular={true}
+          />
+          {selectedLocation && (
+            <div className="mt-2 p-2 bg-blue-50 rounded-md">
+              <div className="text-sm font-medium text-blue-900">
+                Selected Service Area: {selectedLocation.name}, {selectedLocation.state}
+              </div>
+              {selectedLocation.pincode && (
+                <div className="text-xs text-blue-700">Pincode: {selectedLocation.pincode}</div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Description */}
@@ -190,7 +202,11 @@ export function ProviderRegistrationForm() {
           </p>
         </div>
 
-        <Button className="w-full" size="lg">
+        <Button
+          className="w-full"
+          size="lg"
+          disabled={!selectedLocation || !formData.name || !formData.phone || !formData.serviceType}
+        >
           Register as Provider
         </Button>
       </CardContent>

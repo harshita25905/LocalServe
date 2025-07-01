@@ -3,7 +3,7 @@ import { DashboardStats } from "@/components/dashboard-stats"
 import { BookingCard } from "@/components/booking-card"
 import { RecommendedProviders } from "@/components/recommended-providers"
 import { Footer } from "@/components/footer"
-import { ChatBot } from "@/components/chat-bot"
+import { AIVoiceAssistant } from "@/components/ai-voice-assistant"
 
 const upcomingBookings = [
   {
@@ -52,7 +52,7 @@ export default function DashboardPage() {
         </div>
       </main>
       <Footer />
-      <ChatBot />
+      <AIVoiceAssistant />
     </div>
   )
 }

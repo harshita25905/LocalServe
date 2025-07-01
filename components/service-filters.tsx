@@ -5,11 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { LocationSearch } from "@/components/location-search"
+import type { Location } from "@/data/locations"
 
 export function ServiceFilters() {
   const [priceRange, setPriceRange] = useState([0, 1000])
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
+
+  const handleLocationSelect = (location: Location) => {
+    setSelectedLocation(location)
+    console.log("Filter location selected:", location)
+  }
 
   return (
     <Card>
@@ -19,8 +26,17 @@ export function ServiceFilters() {
       <CardContent className="space-y-6">
         {/* Location */}
         <div>
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" placeholder="Enter location" className="mt-1" />
+          <Label className="text-sm font-medium mb-2 block">Location</Label>
+          <LocationSearch
+            placeholder="Search location..."
+            onLocationSelect={handleLocationSelect}
+            showPopular={false}
+          />
+          {selectedLocation && (
+            <div className="mt-1 text-xs text-gray-500">
+              Selected: {selectedLocation.name}, {selectedLocation.state}
+            </div>
+          )}
         </div>
 
         {/* Service Type */}

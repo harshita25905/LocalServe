@@ -1,7 +1,7 @@
 import { Header } from "@/components/header"
 import { ProviderRegistrationForm } from "@/components/provider-registration-form"
 import { Footer } from "@/components/footer"
-import { ChatBot } from "@/components/chat-bot"
+import { AIVoiceAssistant } from "@/components/ai-voice-assistant"
 
 export default function ProviderRegisterPage() {
   return (
@@ -17,7 +17,7 @@ export default function ProviderRegisterPage() {
         </div>
       </main>
       <Footer />
-      <ChatBot />
+      <AIVoiceAssistant />
     </div>
   )
 }
